@@ -14,9 +14,7 @@ public class EnemyController : EntityController
     float minRange = 6f;
 
     //Can fire once every 2 seconds
-    [SerializeField]
     float maxFiringCooldown = 2f;
-    [SerializeField]
     float firingCooldown = 0f;
 
     //Can dash once every 2 seconds

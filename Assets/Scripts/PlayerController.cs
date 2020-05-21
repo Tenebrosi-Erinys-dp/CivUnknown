@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : EntityController
 {
+    public GameObject healthBarUI;
 
     // Start is called before the first frame update
     void Start()
@@ -11,6 +12,7 @@ public class PlayerController : EntityController
         rb = GetComponent<Rigidbody2D>();
         pc = this;
         Defaults.player = this;
+        healthBar = healthBarUI;
     }
 
     // Update is called once per frame
@@ -31,5 +33,12 @@ public class PlayerController : EntityController
     public override void OnHit(int damage)
     {
         Debug.Log("Ow that hurt me for " + damage + " damage!");
+        base.OnHit(damage);
+    }
+
+    public override void Die()
+    {
+        //Game Over
+
     }
 }
