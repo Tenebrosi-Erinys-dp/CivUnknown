@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : EntityController
 {
-    public GameObject healthBarUI;
-
+    [SerializeField]
+    Slider slider;
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         pc = this;
         Defaults.player = this;
-        healthBar = healthBarUI;
     }
 
     // Update is called once per frame
@@ -34,6 +35,7 @@ public class PlayerController : EntityController
     {
         Debug.Log("Ow that hurt me for " + damage + " damage!");
         base.OnHit(damage);
+        slider.value = GetHealthPercent();
     }
 
     public override void Die()

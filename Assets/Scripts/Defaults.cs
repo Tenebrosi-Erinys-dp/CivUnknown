@@ -8,9 +8,10 @@ public class Defaults : MonoBehaviour
     public ProjectileController arrow;
     public EnemyController hunter;
     public static PlayerController player;
+    public FloatingHealthBar health;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         instance = this;
     }

@@ -32,12 +32,18 @@ public class EnemyController : EntityController
 
     bool strafing = false;
     int dir;
-    
+
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         strafeResetSpeed = Random.Range(strafeMin, strafeMax);
+        healthBar = Instantiate(Defaults.instance.health);
+        healthBar.entity = this;
+        healthBar.bar = healthBar.transform.Find("Bar").gameObject;
+        maxHp = 10;
+        currentHp = maxHp;
     }
 
     // Update is called once per frame
@@ -107,7 +113,7 @@ public class EnemyController : EntityController
                 else if (strafing)
                 {
                     Strafe();
-                    if(currentStrafeTime < strafeResetSpeed)
+                    if (currentStrafeTime < strafeResetSpeed)
                     {
                         currentStrafeTime += Time.deltaTime;
                     }
@@ -124,11 +130,11 @@ public class EnemyController : EntityController
 
     void CooldownController()
     {
-        if(firingCooldown > 0)
+        if (firingCooldown > 0)
         {
             firingCooldown -= Time.deltaTime;
         }
-        if(dashCooldown > 0)
+        if (dashCooldown > 0)
         {
             dashCooldown -= Time.deltaTime;
         }
@@ -136,10 +142,10 @@ public class EnemyController : EntityController
 
     void FireController()
     {
-        if(firingCooldown <= 0)
+        if (firingCooldown <= 0)
         {
             ProjectileController arrow = Instantiate(Defaults.instance.arrow, transform);
-            Debug.Log("Object instantiated: " + arrow);
+            arrow.attackDamage = attackDamage;
             arrow.transform.position = transform.position;
             arrow.transform.rotation = transform.rotation;
             firingCooldown = maxFiringCooldown;
@@ -149,11 +155,11 @@ public class EnemyController : EntityController
     void Strafe()
     {
         float movementDirection = Mathf.Rad2Deg * Vector2Angle(player);
-        if(dir == 0)
+        if (dir == 0)
         {
             movementDirection += 90;
         }
-        else if(dir == 1)
+        else if (dir == 1)
         {
             movementDirection -= 90;
         }

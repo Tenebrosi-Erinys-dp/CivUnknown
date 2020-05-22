@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileController : EnemyController
+public class ProjectileController : EntityController
 {
     Vector2 startPosition;
     public float maxRange = 10f;
