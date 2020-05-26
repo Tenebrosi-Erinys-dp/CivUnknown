@@ -8,8 +8,8 @@ public class PlayerController : EntityController
     [SerializeField]
     Slider slider;
     public AudioSource Audio;
-    public float timer = 0.5f;
-    public float TimeToStep = 6f;
+    public float timer;
+    public float timeToStep = .6f;
     // Start is called before the first frame update
     new void Start()
     {
@@ -18,8 +18,7 @@ public class PlayerController : EntityController
         pc = this;
         Defaults.player = this;
         Audio = GetComponent<AudioSource>();
-        timer = TimeToStep;
-       
+        timer = timeToStep;
     }
 
     // Update is called once per frame
@@ -38,11 +37,14 @@ public class PlayerController : EntityController
 
         //this is to play sound effect
         timer += Time.deltaTime;
-        if(timer > TimeToStep)
+        bool isMoving = !(Mathf.Approximately(x, 0) && Mathf.Approximately(y, 0));
+
+        if (timer > timeToStep && !(Mathf.Approximately(x, 0) && Mathf.Approximately(y, 0)))
         {
             Audio.Play();
             timer = 0;
         }
+        Debug.Log(timeToStep - timer);
     }
 
     public override void OnHit(int damage)

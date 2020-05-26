@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwingDamageEnemy : MonoBehaviour
+public class MeleeEnemy : MonoBehaviour
 {
     public int damageAmount = 0;
     // Start is called before the first frame update
@@ -16,6 +16,7 @@ public class SwingDamageEnemy : MonoBehaviour
     {
 
     }
+
     //Damage Enemies on collision
     private void OnTriggerEnter2D (Collider2D collision) {
        //remove comment when enemy health is implemented and change to correct varaible
