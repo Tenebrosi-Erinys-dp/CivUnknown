@@ -9,6 +9,7 @@ public class Defaults : MonoBehaviour
     public EnemyController hunter;
     public static PlayerController player;
     public FloatingHealthBar health;
+    public AudioSource As;
 
     // Start is called before the first frame update
     void Awake()
