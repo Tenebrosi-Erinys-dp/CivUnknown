@@ -11,15 +11,16 @@ public class MeleeAttack : MonoBehaviour
     //box collider is trigger moves with player swing
     //rotate swing box collider
 
-    GameObject Swing = GameObject.Find("Swing");
+    GameObject Swing;
     public double swingTime = 0;
     public Vector2 BoxColliderSize = Vector2.zero;
     public Vector3 BoxColliderPosition = Vector3.zero;
-    GameObject Player = GameObject.Find("Player");
+    GameObject Player;
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject Swing = GameObject.Find("Swing");
+        GameObject Player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
