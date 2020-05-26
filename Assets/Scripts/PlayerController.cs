@@ -8,7 +8,6 @@ public class PlayerController : EntityController
     [SerializeField]
     Slider slider;
     public AudioSource As;
-    public AudioSource As1;
     // Start is called before the first frame update
     new void Start()
     {
@@ -17,14 +16,13 @@ public class PlayerController : EntityController
         pc = this;
         Defaults.player = this;
         As = GetComponent<AudioSource>();
-        As1 = GetComponent<AudioSource>();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
         MovementController();
-        As.Play();
     }
 
     void MovementController()
@@ -34,6 +32,7 @@ public class PlayerController : EntityController
 
         rb.MovePosition((Vector2)transform.position + new Vector2(x, y).normalized * speed * Time.deltaTime);
         rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(MouseAsWorldPos()));
+        As.Play();
     }
 
     public override void OnHit(int damage)
@@ -41,7 +40,6 @@ public class PlayerController : EntityController
         Debug.Log("Ow that hurt me for " + damage + " damage!");
         base.OnHit(damage);
         slider.value = GetHealthPercent();
-        As1.Play();
     }
 
     public override void Die()
