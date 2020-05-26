@@ -6,7 +6,7 @@ using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 using Quaternion = UnityEngine.Quaternion;
 
-public class Melee : MonoBehaviour
+public class MeleeAttack : MonoBehaviour
 {
     //box collider is trigger moves with player swing
     //rotate swing box collider
