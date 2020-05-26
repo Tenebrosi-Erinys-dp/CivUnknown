@@ -7,6 +7,8 @@ public class PlayerController : EntityController
 {
     [SerializeField]
     Slider slider;
+    public AudioSource As;
+    public AudioSource As1;
     // Start is called before the first frame update
     new void Start()
     {
@@ -14,12 +16,15 @@ public class PlayerController : EntityController
         rb = GetComponent<Rigidbody2D>();
         pc = this;
         Defaults.player = this;
+        As = GetComponent<AudioSource>();
+        As1 = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
         MovementController();
+        As.Play();
     }
 
     void MovementController()
@@ -36,6 +41,7 @@ public class PlayerController : EntityController
         Debug.Log("Ow that hurt me for " + damage + " damage!");
         base.OnHit(damage);
         slider.value = GetHealthPercent();
+        As1.Play();
     }
 
     public override void Die()

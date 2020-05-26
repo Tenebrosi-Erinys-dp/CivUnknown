@@ -69,8 +69,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   attackDamage: 0
-  maxFiringCooldown: 2
-  firingCooldown: 0
+  maxHp: 10
+  currentHp: 0
+  healthBar: {fileID: 0}
   maxRange: 10
 --- !u!60 &1336679598881546550
 PolygonCollider2D:
