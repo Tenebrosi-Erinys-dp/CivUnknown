@@ -222,7 +222,7 @@ MonoBehaviour:
   arrow: {fileID: -4236079206708468381, guid: c8f55dd18eb1e094a9f21526d3045ada, type: 3}
   hunter: {fileID: 0}
   health: {fileID: 5615755559205212319, guid: 1ece322f6f02e51458271d43ecb1991b, type: 3}
-  As: {fileID: 0}
+  Audio: {fileID: 0}
 --- !u!4 &405302902
 Transform:
   m_ObjectHideFlags: 0
@@ -519,7 +519,9 @@ MonoBehaviour:
   currentHp: 0
   healthBar: {fileID: 0}
   slider: {fileID: 0}
-  As: {fileID: 0}
+  Audio: {fileID: 0}
+  timer: 0.5
+  TimeToStep: 6
 --- !u!114 &618915115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,7 +540,9 @@ MonoBehaviour:
   currentHp: 0
   healthBar: {fileID: 0}
   slider: {fileID: 633609939}
-  As: {fileID: 0}
+  Audio: {fileID: 0}
+  timer: 0.6
+  TimeToStep: 1
 --- !u!58 &618915116
 CircleCollider2D:
   m_ObjectHideFlags: 0

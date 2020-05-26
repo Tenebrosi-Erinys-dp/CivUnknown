@@ -7,7 +7,9 @@ public class PlayerController : EntityController
 {
     [SerializeField]
     Slider slider;
-    public AudioSource As;
+    public AudioSource Audio;
+    public float timer = 0.5f;
+    public float TimeToStep = 6f;
     // Start is called before the first frame update
     new void Start()
     {
@@ -15,7 +17,8 @@ public class PlayerController : EntityController
         rb = GetComponent<Rigidbody2D>();
         pc = this;
         Defaults.player = this;
-        As = GetComponent<AudioSource>();
+        Audio = GetComponent<AudioSource>();
+        timer = TimeToStep;
        
     }
 
@@ -32,7 +35,14 @@ public class PlayerController : EntityController
 
         rb.MovePosition((Vector2)transform.position + new Vector2(x, y).normalized * speed * Time.deltaTime);
         rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(MouseAsWorldPos()));
-        As.Play();
+
+        //this is to play sound effect
+        timer += Time.deltaTime;
+        if(timer > TimeToStep)
+        {
+            Audio.Play();
+            timer = 0;
+        }
     }
 
     public override void OnHit(int damage)
