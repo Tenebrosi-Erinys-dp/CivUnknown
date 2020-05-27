@@ -18,7 +18,7 @@ public class MeleeAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject Swing = GameObject.Find("Swing");
+        //GameObject Swing = GameObject.Find("Swing");
     }
 
     // Update is called once per frame
@@ -26,6 +26,7 @@ public class MeleeAttack : MonoBehaviour
     {
         //If press button to melee attack
         //Temp: Space bar
+        Debug.Log ("Hi");
         if (Input.GetKeyDown(KeyCode.Space)) {
             //Temp: Debug
             Debug.Log("Take this!");
