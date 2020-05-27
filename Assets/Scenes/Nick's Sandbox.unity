@@ -489,6 +489,7 @@ GameObject:
   - component: {fileID: 618915115}
   - component: {fileID: 618915116}
   - component: {fileID: 618915117}
+  - component: {fileID: 618915118}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -603,7 +604,7 @@ MonoBehaviour:
   slider: {fileID: 0}
   Audio: {fileID: 0}
   timer: 0.5
-  TimeToStep: 6
+  timeToStep: 0.6
 --- !u!114 &618915115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,7 +625,7 @@ MonoBehaviour:
   slider: {fileID: 633609939}
   Audio: {fileID: 0}
   timer: 0.6
-  TimeToStep: 1
+  timeToStep: 0.6
 --- !u!58 &618915116
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -737,6 +738,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &618915118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618915110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6128c8410fb472468b4ee4f19353951, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swingTime: 0
+  BoxColliderSize: {x: 0, y: 0}
+  BoxColliderPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &633609937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,6 +1038,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1589456577}
   - component: {fileID: 1589456576}
+  - component: {fileID: 1589456578}
   m_Layer: 0
   m_Name: Swing
   m_TagString: Untagged
@@ -1070,6 +1087,19 @@ Transform:
   m_Father: {fileID: 618915112}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1589456578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589456575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b0e043806936e54e940e5f6a6fa37a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 0
 --- !u!1 &1931496639
 GameObject:
   m_ObjectHideFlags: 0

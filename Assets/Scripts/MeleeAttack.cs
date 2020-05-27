@@ -27,7 +27,8 @@ public class MeleeAttack : MonoBehaviour
     void Update()
     {
         //If press button to melee attack
-        if (Input.GetButton("Fire1")) {
+        //Temp: Space bar
+        if (Input.GetKeyDown(KeyCode.Space)) {
             //Instantiate the collider on the player's arm at BoxColliderPosition
             GameObject.Instantiate(Swing, BoxColliderPosition, Quaternion.identity, GameObject.Find("Player").transform);
             //rotate the box collider in a semicircle within the total time
