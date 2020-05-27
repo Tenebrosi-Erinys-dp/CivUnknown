@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 7114815273456313935}
   - component: {fileID: 7114815273456313928}
   - component: {fileID: 2545030985409007919}
+  - component: {fileID: 6081302248346736564}
   m_Layer: 0
   m_Name: MeleeEnemy
   m_TagString: Enemy
@@ -203,9 +204,25 @@ MonoBehaviour:
   maxHp: 10
   currentHp: 0
   healthBar: {fileID: 0}
-  hitbox: {fileID: -8875166205001605216, guid: 9edc5eb682ee91247b7139514a1c7071, type: 3}
+  hitbox: {fileID: 8996142205297252146, guid: 9edc5eb682ee91247b7139514a1c7071, type: 3}
   attackRange: 2
   attackRadius: 90
   attackWindup: 0.5
   attackDuration: 0.5
   attackRecovery: 0.5
+--- !u!58 &6081302248346736564
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7114815273456313932}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

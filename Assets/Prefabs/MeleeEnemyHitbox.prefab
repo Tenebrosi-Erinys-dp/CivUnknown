@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 755610571777937217}
   - component: {fileID: 8644475441571744940}
-  - component: {fileID: -8875166205001605216}
+  - component: {fileID: 8996142205297252146}
   m_Layer: 0
   m_Name: MeleeEnemyHitbox
   m_TagString: Untagged
@@ -49,7 +49,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0.5, y: 0}
   m_Size: {x: 1, y: 0.5}
   m_Direction: 1
---- !u!114 &-8875166205001605216
+--- !u!114 &8996142205297252146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
   speed: 0
   attackDamage: 0
   maxRange: 0
-  isEnemy: 1
+  isEnemy: 0
 --- !u!1 &7004151609392368424
 GameObject:
   m_ObjectHideFlags: 0

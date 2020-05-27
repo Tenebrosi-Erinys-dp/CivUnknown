@@ -48,7 +48,8 @@ public class MeleeEnemy : EnemyController
 
 
                 //ADD BACK AFTER TESTING
-                //MoveInDirection(direction);
+                MoveInDirection(direction);
+                rb.MoveRotation(Vector2Angle(FlipAroundSelf(player)));
             }
         }
     }
@@ -69,6 +70,7 @@ public class MeleeEnemy : EnemyController
         float rotation = rb.rotation - attackRadius / 2f;
         float finalRotation = rb.rotation + attackRadius / 2f;
         hitboxInstance = Instantiate(hitbox);
+        hitboxInstance.parent = gameObject;
         hitboxInstance.transform.position = transform.position;
         hitboxInstance.transform.eulerAngles = new Vector3(0, 0, rotation);
         hitboxInstance.attackDamage = attackDamage;
@@ -101,7 +103,6 @@ public class MeleeEnemy : EnemyController
         if (collision.collider.CompareTag("Player"))
         {
             Defaults.player.OnHit(attackDamage);
-            Destroy(gameObject);
         }
     }
 }

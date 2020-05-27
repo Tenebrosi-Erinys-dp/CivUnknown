@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Collider2D))]
 public class Hitbox : MonoBehaviour
 {
     protected Rigidbody2D rb;
@@ -10,6 +10,7 @@ public class Hitbox : MonoBehaviour
     public int attackDamage;
     public float maxRange;
     public bool isEnemy;
+    public GameObject parent;
 
     // Start is called before the first frame update
     protected void Awake()
@@ -18,9 +19,17 @@ public class Hitbox : MonoBehaviour
     }
 
     // Update is called once per frame
+    private void Update()
+    {
+        if(parent == null)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Collision is happening");
         if (isEnemy && other.gameObject.CompareTag("Player") || !isEnemy && other.gameObject.CompareTag("Enemy"))
         {
             other.GetComponent<EntityController>().OnHit(attackDamage);

@@ -39,5 +39,8 @@ public class EnemyController : EntityController
         return distance;
     }
 
-    
+    protected override void Die()
+    {
+        Destroy(gameObject);
+    }
 }

@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 8042311717089258701}
   - component: {fileID: 8042311717089258698}
   - component: {fileID: 2691741229107555433}
+  - component: {fileID: 498451570441617303}
   m_Layer: 0
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -204,3 +205,20 @@ MonoBehaviour:
   currentHp: 0
   healthBar: {fileID: 5615755559205212319, guid: 1ece322f6f02e51458271d43ecb1991b,
     type: 3}
+  arrowRange: 10
+--- !u!58 &498451570441617303
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8042311717089258702}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

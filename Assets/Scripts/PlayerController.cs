@@ -5,10 +5,40 @@ using UnityEngine.UI;
 
 public class PlayerController : EntityController
 {
-    public Slider slider;
+    public Slider healthSlider;
+    public Slider cdSlider;
+    public Slider chargeSlider;
+
     public AudioSource Audio;
     public float timer;
     public float timeToStep = .6f;
+    public Hitbox meleeHitbox;
+    public GameObject rangedHitbox;
+    Hitbox hitboxInstance;
+    public float attackRange = 2f;
+    public float attackRadius = 45;
+    public float attackWindup = 0.5f;
+    public float attackDuration = 1f;
+    public float attackRecovery = 0.5f;
+    bool attacking = false;
+
+    public float maxSpellCD = 5f;
+    public float spellCD = 0;
+    public float spellCurrentCharge = 0;
+    public float maxSpellCharge = 3;
+
+    public float spellRange = 10f;
+    public float spellWidth = 2f;
+    public float spellDuration = .5f;
+    public float spellRecovery = .25f;
+
+    public float currentSpeed;
+
+    public float spellChargeSpeedMult = 0.8f;
+    public float spellFireSpeedMult = 0.5f;
+
+    public int spellDamage = 3;
+
     // Start is called before the first frame update
     new void Start()
     {
@@ -18,12 +48,82 @@ public class PlayerController : EntityController
         Defaults.player = this;
         Audio = GetComponent<AudioSource>();
         timer = timeToStep;
+        currentSpeed = speed;
     }
 
     // Update is called once per frame
     void Update()
     {
         MovementController();
+        CooldownController();
+        SpellController();
+        AttackController();
+    }
+
+    void AttackController()
+    {
+        if (Input.GetButton("Fire1") && !attacking)
+        {
+            StartCoroutine(MeleeAttack());
+        }
+    }
+
+    protected override void CooldownController()
+    {
+        timeSinceLastInvinc += Time.deltaTime;
+        base.CooldownController();
+        if (spellCD > 0)
+        {
+            spellCD -= Time.deltaTime;
+        }
+        cdSlider.value = 1 - (spellCD / maxSpellCD);
+    }
+
+    void SpellController()
+    {
+        if(spellCD <= 0 && Input.GetButton("Fire2"))
+        {
+            currentSpeed = speed * spellChargeSpeedMult;
+            spellCurrentCharge += Time.deltaTime;
+            if(spellCurrentCharge >= maxSpellCharge)
+            {
+                //Fire strongest spell
+                Debug.Log("Fire");
+                StartCoroutine(LaserSpell());
+                spellCD = maxSpellCD;
+                spellCurrentCharge = 0;
+            }
+        }
+        else
+        {
+            spellCurrentCharge = 0;
+            currentSpeed = speed;
+        }
+        chargeSlider.value = spellCurrentCharge / maxSpellCharge;
+    }
+
+    IEnumerator LaserSpell()
+    {
+        float timer = 0;
+        currentSpeed = 0;
+        hitboxInstance = Instantiate(rangedHitbox, transform.position, transform.rotation).GetComponent<Hitbox>();
+        hitboxInstance.parent = gameObject;
+        hitboxInstance.attackDamage = spellDamage;
+        while(timer < spellDuration)
+        {
+            timer += Time.deltaTime;
+            hitboxInstance.transform.localScale = new Vector3(spellRange, Mathf.Lerp(0, spellWidth, timer / spellDuration), 1);
+            yield return null;
+        }
+        Destroy(hitboxInstance.gameObject);
+        yield return new WaitForSeconds(spellRecovery);
+        currentSpeed = speed;
+    }
+
+    protected override void MoveInDirection(Vector2 pos)
+    {
+        Vector2 mPos = pos.normalized * currentSpeed * Time.deltaTime;
+        rb.MovePosition((Vector2)transform.position + mPos);
     }
 
     void MovementController()
@@ -49,12 +149,42 @@ public class PlayerController : EntityController
     {
         Debug.Log("Ow that hurt me for " + damage + " damage!");
         base.OnHit(damage);
-        slider.value = GetHealthPercent();
+        timeSinceLastInvinc = 0;
+        healthSlider.value = GetHealthPercent();
+    
     }
 
-    public override void Die()
+    IEnumerator MeleeAttack()
+    {
+        attacking = true;
+        yield return new WaitForSeconds(attackWindup);
+        //Generate attack hitbox
+        timer = 0f;
+        float rotation = rb.rotation - attackRadius / 2f;
+        float finalRotation = rb.rotation + attackRadius / 2f;
+        hitboxInstance = Instantiate(meleeHitbox);
+        hitboxInstance.parent = gameObject;
+        hitboxInstance.transform.position = transform.position;
+        hitboxInstance.transform.eulerAngles = new Vector3(0, 0, rotation);
+        hitboxInstance.attackDamage = attackDamage;
+
+        //Rotate attack hitbox
+        while (timer < attackDuration)
+        {
+            timer += Time.deltaTime;
+            float z = Mathf.Lerp(rotation, finalRotation, timer / attackDuration);
+            hitboxInstance.transform.eulerAngles = new Vector3(0, 0, z);
+            yield return null;
+        }
+        Destroy(hitboxInstance.gameObject);
+
+        yield return new WaitForSeconds(attackRecovery);
+        attacking = false;
+    }
+
+    protected override void Die()
     {
         //Game Over
-
+        Debug.Break();
     }
 }

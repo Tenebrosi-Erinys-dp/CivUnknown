@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class ProjectileController : Hitbox
 {
-    Vector2 startPosition;
+    public Vector2 startPosition;
 
     // Start is called before the first frame update
     new protected void Awake()
     {
         base.Awake();
-        startPosition = transform.position;
-        speed = 10f;
-        attackDamage = 1;
     }
 
     // Update is called once per frame
@@ -28,7 +24,7 @@ public class ProjectileController : Hitbox
         {
             Destroy(gameObject);
         }
-        transform.Translate(Vector2.right * speed * Time.deltaTime, Space.Self);
+        transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)

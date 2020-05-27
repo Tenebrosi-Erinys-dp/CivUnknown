@@ -53,11 +53,13 @@ public class RangedEnemy : EnemyController
     {
         if (attackCD <= 0)
         {
-            ProjectileController arrow = Instantiate(Defaults.instance.arrow, transform);
+            ProjectileController arrow = Instantiate(Defaults.instance.arrow);
             arrow.isEnemy = true;
             arrow.attackDamage = attackDamage;
             arrow.transform.position = transform.position;
+            arrow.startPosition = arrow.transform.position;
             arrow.transform.rotation = transform.rotation;
+            arrow.parent = gameObject;
             attackCD = maxAttackCD;
         }
     }
@@ -133,7 +135,7 @@ public class RangedEnemy : EnemyController
             return;
         }
         //Get unit vector from angle
-        Vector2 newPos = new Vector2(Mathf.Cos(Mathf.Deg2Rad * movementDirection), Mathf.Sin(Mathf.Deg2Rad * movementDirection));
-        MoveInDirection(newPos);
+        Vector2 newPos = new Vector2(Mathf.Cos(Mathf.Deg2Rad * movementDirection), Mathf.Sin(Mathf.Deg2Rad * movementDirection)).normalized;
+        rb.MovePosition(transform.position + (Vector3)newPos.normalized * speed * Time.deltaTime);
     }
 }

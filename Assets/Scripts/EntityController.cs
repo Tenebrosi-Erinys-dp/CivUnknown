@@ -14,6 +14,9 @@ public class EntityController : MonoBehaviour
     protected float maxAttackCD = 2f;
     protected float attackCD = 0f;
 
+    public float invincibilityTime = 0.25f;
+    public float timeSinceLastInvinc = 0f;
+
     [SerializeField]
     protected int maxHp = 10;
 
@@ -34,6 +37,7 @@ public class EntityController : MonoBehaviour
         {
             attackCD -= Time.deltaTime;
         }
+        timeSinceLastInvinc += Time.deltaTime;
     }
 
     protected Vector3 MouseAsWorldPos()
@@ -48,7 +52,7 @@ public class EntityController : MonoBehaviour
         return Mathf.Atan2(v.y - transform.position.y, v.x - transform.position.x);
     }
 
-    protected void MoveInDirection(Vector2 pos)
+    protected virtual void MoveInDirection(Vector2 pos)
     {
         Vector2 mPos = pos.normalized * speed * Time.deltaTime;
         rb.MovePosition((Vector2)transform.position + mPos);
@@ -64,15 +68,19 @@ public class EntityController : MonoBehaviour
 
     public virtual void OnHit(int damage)
     {
-        currentHp -= damage;
-
-        if (currentHp <= 0)
+        if (timeSinceLastInvinc > invincibilityTime)
         {
-            Die();
+            currentHp -= damage;
+
+            if (currentHp <= 0)
+            {
+                Die();
+            }
+            timeSinceLastInvinc = 0;
         }
     }
 
-    public virtual void Die()
+    protected virtual void Die()
     {
 
     }
