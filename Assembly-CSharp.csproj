@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\EntityController.cs" />
      <Compile Include="Assets\Scripts\FloatingHealthBar.cs" />
+     <Compile Include="Assets\Scripts\Hitbox.cs" />
      <Compile Include="Assets\Scripts\MeleeAttack.cs" />
      <Compile Include="Assets\Scripts\MeleeEnemy.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
