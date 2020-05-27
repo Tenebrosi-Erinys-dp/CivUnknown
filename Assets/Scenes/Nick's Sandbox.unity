@@ -903,7 +903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  attackDamage: 1
+  attackDamage: 5
   invincibilityTime: 0.25
   timeSinceLastInvinc: 0
   maxHp: 10
@@ -920,10 +920,8 @@ MonoBehaviour:
   rangedHitbox: {fileID: 583711077417704730, guid: 33dcd864c1c8e0a47b14826eebad47c1,
     type: 3}
   attackRange: 2
-  attackRadius: 45
-  attackWindup: 0.5
-  attackDuration: 1
-  attackRecovery: 0.5
+  attackRadius: 90
+  attackDuration: 0.25
   maxSpellCD: 5
   spellCD: 0
   spellCurrentCharge: 0

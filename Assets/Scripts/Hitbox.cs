@@ -29,7 +29,6 @@ public class Hitbox : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Collision is happening");
         if (isEnemy && other.gameObject.CompareTag("Player") || !isEnemy && other.gameObject.CompareTag("Enemy"))
         {
             other.GetComponent<EntityController>().OnHit(attackDamage);

@@ -17,9 +17,7 @@ public class PlayerController : EntityController
     Hitbox hitboxInstance;
     public float attackRange = 2f;
     public float attackRadius = 45;
-    public float attackWindup = 0.5f;
     public float attackDuration = 1f;
-    public float attackRecovery = 0.5f;
     bool attacking = false;
 
     public float maxSpellCD = 5f;
@@ -157,28 +155,24 @@ public class PlayerController : EntityController
     IEnumerator MeleeAttack()
     {
         attacking = true;
-        yield return new WaitForSeconds(attackWindup);
         //Generate attack hitbox
-        timer = 0f;
+        float timer = 0f;
         float rotation = rb.rotation - attackRadius / 2f;
         float finalRotation = rb.rotation + attackRadius / 2f;
-        hitboxInstance = Instantiate(meleeHitbox);
+        hitboxInstance = Instantiate(meleeHitbox, transform);
         hitboxInstance.parent = gameObject;
-        hitboxInstance.transform.position = transform.position;
-        hitboxInstance.transform.eulerAngles = new Vector3(0, 0, rotation);
         hitboxInstance.attackDamage = attackDamage;
-
+        hitboxInstance.isEnemy = false;
         //Rotate attack hitbox
         while (timer < attackDuration)
         {
+            Debug.Log(timer);
             timer += Time.deltaTime;
             float z = Mathf.Lerp(rotation, finalRotation, timer / attackDuration);
             hitboxInstance.transform.eulerAngles = new Vector3(0, 0, z);
             yield return null;
         }
         Destroy(hitboxInstance.gameObject);
-
-        yield return new WaitForSeconds(attackRecovery);
         attacking = false;
     }
 
