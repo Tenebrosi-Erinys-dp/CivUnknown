@@ -11,10 +11,6 @@ public class RangedEnemy : EnemyController
     //Will avoid being less than 7 units away from player
     float minRange = 6f;
 
-    //Can fire once every 2 seconds
-    float maxFiringCooldown = 2f;
-    float firingCooldown = 0f;
-
     //Can dash once every 2 seconds
     float maxDashCooldown = 2f;
     float dashCooldown = 0f;
@@ -24,6 +20,8 @@ public class RangedEnemy : EnemyController
     float strafeMax = 5f;
     float strafeMin = 1f;
     float currentStrafeTime = 0;
+
+    public float arrowRange = 10f;
 
     bool strafing = false;
     int dir;
@@ -42,27 +40,25 @@ public class RangedEnemy : EnemyController
         CooldownController();
     }
 
-    void CooldownController()
+    override protected void CooldownController()
     {
-        if (firingCooldown > 0)
-        {
-            firingCooldown -= Time.deltaTime;
-        }
+        base.CooldownController();
         if (dashCooldown > 0)
         {
             dashCooldown -= Time.deltaTime;
         }
     }
 
-    void FireController()
+    void AttackController()
     {
-        if (firingCooldown <= 0)
+        if (attackCD <= 0)
         {
             ProjectileController arrow = Instantiate(Defaults.instance.arrow, transform);
+            arrow.isEnemy = true;
             arrow.attackDamage = attackDamage;
             arrow.transform.position = transform.position;
             arrow.transform.rotation = transform.rotation;
-            firingCooldown = maxFiringCooldown;
+            attackCD = maxAttackCD;
         }
     }
 
@@ -81,9 +77,7 @@ public class RangedEnemy : EnemyController
 
                 //Move towards player
                 direction -= (Vector2)transform.position;
-                direction = Vector2.ClampMagnitude(direction, speed * Time.deltaTime);
-                direction += (Vector2)transform.position;
-                rb.MovePosition(direction);
+                MoveInDirection(direction);
             }
             else if (distance < minRange)
             {
@@ -92,13 +86,11 @@ public class RangedEnemy : EnemyController
                 //Move away from player
                 direction = FlipAroundSelf(player);
                 direction -= (Vector2)transform.position;
-                direction = Vector2.ClampMagnitude(direction, speed * Time.deltaTime);
-                direction += (Vector2)transform.position;
-                rb.MovePosition(direction);
+                MoveInDirection(direction);
             }
             else
             {
-                FireController();
+                AttackController();
                 if (!strafing)
                 {
                     //Begin strafing
@@ -142,7 +134,6 @@ public class RangedEnemy : EnemyController
         }
         //Get unit vector from angle
         Vector2 newPos = new Vector2(Mathf.Cos(Mathf.Deg2Rad * movementDirection), Mathf.Sin(Mathf.Deg2Rad * movementDirection));
-        newPos *= speed * Time.deltaTime;
-        rb.MovePosition(newPos + (Vector2)transform.position);
+        MoveInDirection(newPos);
     }
 }

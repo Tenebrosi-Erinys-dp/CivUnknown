@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : EntityController
 {
-    [SerializeField]
-    Slider slider;
+    public Slider slider;
     public AudioSource Audio;
     public float timer;
     public float timeToStep = .6f;
@@ -29,22 +28,21 @@ public class PlayerController : EntityController
 
     void MovementController()
     {
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
 
-        rb.MovePosition((Vector2)transform.position + new Vector2(x, y).normalized * speed * Time.deltaTime);
+        MoveInDirection(new Vector2(x, y));
         rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(MouseAsWorldPos()));
 
         //this is to play sound effect
         timer += Time.deltaTime;
         bool isMoving = !(Mathf.Approximately(x, 0) && Mathf.Approximately(y, 0));
 
-        if (timer > timeToStep && !(Mathf.Approximately(x, 0) && Mathf.Approximately(y, 0)))
+        if (timer > timeToStep && isMoving)
         {
             Audio.Play();
             timer = 0;
         }
-        Debug.Log(timeToStep - timer);
     }
 
     public override void OnHit(int damage)

@@ -12,7 +12,7 @@ public class EnemyController : EntityController
 
 
     // Start is called before the first frame update
-    new void Start()
+    new protected void Start()
     {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
@@ -38,4 +38,6 @@ public class EnemyController : EntityController
         }
         return distance;
     }
+
+    
 }
