@@ -15,12 +15,10 @@ public class MeleeAttack : MonoBehaviour
     public double swingTime = 0;
     public Vector2 BoxColliderSize = Vector2.zero;
     public Vector3 BoxColliderPosition = Vector3.zero;
-    GameObject Player;
     // Start is called before the first frame update
     void Start()
     {
         GameObject Swing = GameObject.Find("Swing");
-        GameObject Player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -29,10 +27,12 @@ public class MeleeAttack : MonoBehaviour
         //If press button to melee attack
         //Temp: Space bar
         if (Input.GetKeyDown(KeyCode.Space)) {
+            //Temp: Debug
+            Debug.Log("Take this!");
             //Instantiate the collider on the player's arm at BoxColliderPosition
-            GameObject.Instantiate(Swing, BoxColliderPosition, Quaternion.identity, GameObject.Find("Player").transform);
+            //GameObject.Instantiate(Swing, BoxColliderPosition, Quaternion.identity, GameObject.Find("Player").transform);
             //rotate the box collider in a semicircle within the total time
-            Swing.transform.RotateAround(new Vector3(Player.transform.position.x, Player.transform.position.y, Player.transform.position.z), new Vector3(Player.transform.position.x, BoxColliderPosition.y, Player.transform.position.z), 180 * Time.deltaTime);
+            Swing.transform.RotateAround(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), new Vector3(gameObject.transform.position.x, BoxColliderPosition.y, gameObject.transform.position.z), 180 * Time.deltaTime);
             // Destroy once done
             GameObject.Destroy(Swing);
         } 
