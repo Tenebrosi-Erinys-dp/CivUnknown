@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileController : EntityController
+[RequireComponent(typeof(Rigidbody2D))]
+public class ProjectileController : Hitbox
 {
     Vector2 startPosition;
-    public float maxRange = 10f;
 
     // Start is called before the first frame update
-    void Awake()
+    new protected void Awake()
     {
+        base.Awake();
         startPosition = transform.position;
         speed = 10f;
-        rb = GetComponent<Rigidbody2D>();
         attackDamage = 1;
     }
 
@@ -22,7 +22,7 @@ public class ProjectileController : EntityController
         MovementController();
     }
 
-    void MovementController()
+    protected void MovementController()
     {
         if (Vector2.Distance(transform.position, startPosition) > maxRange)
         {
@@ -31,11 +31,11 @@ public class ProjectileController : EntityController
         transform.Translate(Vector2.right * speed * Time.deltaTime, Space.Self);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (isEnemy && other.gameObject.CompareTag("Player") || !isEnemy && other.gameObject.CompareTag("Enemy"))
         {
-            Defaults.player.OnHit(attackDamage);
+            other.gameObject.GetComponent<EntityController>().OnHit(attackDamage);
             Destroy(gameObject);
         }
     }

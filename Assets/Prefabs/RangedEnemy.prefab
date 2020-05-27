@@ -92,9 +92,9 @@ GameObject:
   - component: {fileID: 8042311717089258700}
   - component: {fileID: 8042311717089258701}
   - component: {fileID: 8042311717089258698}
-  - component: {fileID: 8042311717089258699}
+  - component: {fileID: 2691741229107555433}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: RangedEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,7 +186,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8042311717089258699
+--- !u!114 &2691741229107555433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,11 +195,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8042311717089258702}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8858f27ef4b90641b28153e72dd45d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 11c623e1deff1ce408a25020aba9f89e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
   attackDamage: 1
   maxHp: 10
-  currentHp: 10
-  healthBar: {fileID: 0}
+  currentHp: 0
+  healthBar: {fileID: 5615755559205212319, guid: 1ece322f6f02e51458271d43ecb1991b,
+    type: 3}
