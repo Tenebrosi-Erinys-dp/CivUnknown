@@ -902,7 +902,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &618915114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -941,11 +941,11 @@ MonoBehaviour:
   maxSpellCD: 5
   spellCD: 0
   spellCurrentCharge: 0
-  maxSpellCharge: 2
+  maxSpellCharge: 1
   spellRange: 100
   spellWidth: 4
-  spellDuration: 0.25
-  spellRecovery: 0.25
+  spellDuration: 0.5
+  spellRecovery: 0.1
   currentSpeed: 0
   spellChargeSpeedMult: 0.8
   spellFireSpeedMult: 0.5
