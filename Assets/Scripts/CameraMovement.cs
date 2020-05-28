@@ -7,38 +7,56 @@ using Vector3 = UnityEngine.Vector3;
 //Last edited by: Nick Erb 05/28
 public class CameraMovement : MonoBehaviour
 {
-    public int roomWidth = 0;
-    public int roomHeight = 0;
+    public int roomWidthInstance;
+    public int roomHeightInstance;
+    public static int roomWidth = 0;
+    public static int roomHeight = 0;
     float camZ;
-    Transform currentPosition;
-    GameObject Player;
+    static GameObject Player;
+    Vector2 lastRoom;
+    public float timeToChangeRooms = .25f;
     // Start is called before the first frame update
     void Start()
     {
+        roomWidth = roomWidthInstance;
+        roomHeight = roomHeightInstance;
         camZ = transform.position.z;
-        currentPosition = gameObject.transform;
         Player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
-    Vector2Int room = Vector2Int.zero;
     void Update()
     {
         //Basically, take the player's position
-        Vector3 player = Player.transform.position;
+        Vector3 playerPos = Player.transform.position;
+        Vector2Int room = GetRoomFromPosition(playerPos);
         //And derive the room value from that
-        room.x = (int)(player.x + roomWidth / 2) / roomWidth;
-        room.y = (int)(player.y + roomHeight / 2) / roomHeight;
+        if (lastRoom != room)
+        {
+            lastRoom = room;
+            //Change rooms
+            StartCoroutine(SmoothCameraMove(room, timeToChangeRooms));
+        }
         //Then, set the camera into the center of the derived room
-        Vector3 camPos = new Vector3(room.x * roomWidth, room.y * roomHeight, camZ);
-        gameObject.GetComponent<Camera>().transform.position = camPos;
     }
 
-    //FixedUpdate, use FixedDeltaTime
-    void FixedUpdate() {
-        //If player went up, down, right or left to the next room
-        /*if (PlayerPosition.position.y -= currentPosition.position.y == roomWidth) { 
-        
-        }*/
+    public static Vector2Int GetRoomFromPosition(Vector3 pos)
+    {
+        Vector2Int room = Vector2Int.zero;
+        room.x = (int)(pos.x + roomWidth / 2) / roomWidth;
+        room.y = (int)(pos.y + roomHeight / 2) / roomHeight;
+        return room;
+    }
+
+    IEnumerator SmoothCameraMove(Vector2Int room, float time)
+    {
+        Vector3 startPos = transform.position;
+        float timer = 0;
+        while (timer < time)
+        {
+            timer += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPos, new Vector3(room.x * roomWidth, room.y * roomHeight, camZ), timer / time);
+            yield return null;
+        }
     }
 }

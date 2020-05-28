@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyController : EntityController
 {
-    //Can detect the mummy within 10 units
-    float detectionRadius = 10f;
 
     protected Vector2 player;
     protected bool detected;
@@ -27,7 +25,7 @@ public class EnemyController : EntityController
     protected float DetectionCheck()
     {
         float distance = Vector2.Distance(pc.transform.position, transform.position);
-        if (distance < detectionRadius)
+        if (CameraMovement.GetRoomFromPosition(transform.position) == CameraMovement.GetRoomFromPosition(pc.transform.position))
         {
             player = pc.transform.position;
             detected = true;
