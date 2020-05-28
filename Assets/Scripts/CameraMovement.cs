@@ -26,7 +26,7 @@ public class CameraMovement : MonoBehaviour
         room.x = (int)player.x / roomWidth;
         room.y = (int)player.y / roomHeight;
         //Then, set the camera into the center of the derived room
-        Vector3 camPos = new Vector3 ((room.x +0.5f) *roomWidth, (room.y + 0.5f) * roomHeight, 0);
+        Vector3 camPos = new Vector3 ((room.x) *roomWidth, (room.y) * roomHeight, -10);
         gameObject.GetComponent<Camera>().transform.position = camPos;
     }
 
