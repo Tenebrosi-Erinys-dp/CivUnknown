@@ -26,7 +26,6 @@ public class MeleeAttack : MonoBehaviour
     {
         //If press button to melee attack
         //Temp: Space bar
-        Debug.Log ("Hi");
         if (Input.GetKeyDown(KeyCode.Space)) {
             //Temp: Debug
             Debug.Log("Take this!");
