@@ -7,11 +7,13 @@ public class CameraMovement : MonoBehaviour
 {
     public int roomWidth = 0;
     public int roomHeight = 0;
+    float camZ;
     Transform currentPosition;
     GameObject Player;
     // Start is called before the first frame update
     void Start()
     {
+        camZ = transform.position.z;
         currentPosition = gameObject.transform;
         Player = GameObject.Find("Player");
     }
@@ -26,7 +28,7 @@ public class CameraMovement : MonoBehaviour
         room.x = (int)player.x / roomWidth;
         room.y = (int)player.y / roomHeight;
         //Then, set the camera into the center of the derived room
-        Vector3 camPos = new Vector3 ((room.x) *roomWidth, (room.y) * roomHeight, -10);
+        Vector3 camPos = new Vector3(room.x * roomWidth, room.y * roomHeight, camZ);
         gameObject.GetComponent<Camera>().transform.position = camPos;
     }
 
