@@ -72,17 +72,6 @@ public class MeleeEnemy : EnemyController
         }
     }
 
-    IEnumerator RotateToClamped(Vector2 position, float maxDegreesPerSecond)
-    {
-        float initialRot = rb.rotation;
-        float newRot = Vector2Angle(position);
-        while (Mathf.Approximately(rb.rotation, newRot))
-        {
-            rb.MoveRotation(rb.rotation + maxDegreesPerSecond);
-            yield return null;
-        }
-    }
-
     IEnumerator MeleeAttack()
     {
         //Generate attack hitbox
