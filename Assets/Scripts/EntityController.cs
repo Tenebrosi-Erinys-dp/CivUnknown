@@ -11,7 +11,7 @@ public class EntityController : MonoBehaviour
     public int attackDamage = 1;
 
     //Can fire once every 2 seconds
-    protected float maxAttackCD = 2f;
+    public float maxAttackCD = 2f;
     protected float attackCD = 0f;
 
     public float invincibilityTime = 0.25f;
@@ -70,6 +70,7 @@ public class EntityController : MonoBehaviour
     {
         if (timeSinceLastInvinc > invincibilityTime)
         {
+
             currentHp -= damage;
 
             if (currentHp <= 0)

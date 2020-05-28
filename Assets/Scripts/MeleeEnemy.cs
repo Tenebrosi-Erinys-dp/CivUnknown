@@ -30,51 +30,36 @@ public class MeleeEnemy : EnemyController
         float distance = DetectionCheck();
         if (detected)
         {
-            //IF player is too close AND cooldown is off, attack
-            if(!attacking && distance < attackRange && attackCD <= 0)
+            if (!attacking && attackCD <= 0 && distance > attackRange)
             {
-                attackCD = maxAttackCD;
-                attacking = true;
-                StartCoroutine(MeleeAttack());
-            }
-            //If player is too far AND cooldown is off, attack
-            else if (!attacking && distance >= attackRange && attackCD <= 0.5f)
-            {
-                //Go closer
-                Debug.Log("Closing In");
+                //Go towards player, begin rotating
+                rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(player));
                 MoveInDirection(player - (Vector2)transform.position);
-                rb.MoveRotation(Vector2Angle(player));
             }
-            //If the cooldown is too long and player is too close, run
+            else if (!attacking && attackCD <= 0 && distance <= attackRange)
+            {
+                //Attack player
+                attackCD = maxAttackCD;
+                StartCoroutine(MeleeAttack());
+            
+            }
             else if(!attacking && distance < runAwayRange)
             {
-                Vector2 direction = FlipAroundSelf(player);
-                direction -= (Vector2)transform.position;
-
-                //ADD BACK AFTER TESTING
-                MoveInDirection(direction);
-                rb.MoveRotation(Vector2Angle(player));
+                //Run away and rotate away from player
+                rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(FlipAroundSelf(player)));
+                MoveInDirection(FlipAroundSelf(player) - (Vector2)transform.position);
             }
-            //Otherwise, wait
-        }
-    }
-
-    IEnumerator RotateTo(Vector2 position, float seconds)
-    {
-        float timer = 0;
-        float initialRot = rb.rotation;
-        float newRot = Vector2Angle(position);
-        while(timer < seconds)
-        {
-            timer += Time.deltaTime;
-            rb.MoveRotation(Mathf.Lerp(initialRot, newRot, timer / seconds));
-            yield return null;
+            else
+            {
+                //Do nothing
+            }
         }
     }
 
     IEnumerator MeleeAttack()
     {
         //Generate attack hitbox
+        attacking = true;
         float timer = 0f;
         float rotation = rb.rotation - attackRadius / 2f;
         float finalRotation = rb.rotation + attackRadius / 2f;
@@ -94,15 +79,6 @@ public class MeleeEnemy : EnemyController
             yield return null;
         }
         Destroy(hitboxInstance.gameObject);
-
-        //Rotate back around
-        timer = 0f;
-        while(timer < attackRecovery)
-        {
-            timer += Time.deltaTime;
-            rb.MoveRotation(Mathf.Lerp(rb.rotation, Mathf.Rad2Deg * Vector2Angle(FlipAroundSelf(player)), timer / attackRecovery));
-            yield return null;
-        }
         attacking = false;
     }
 

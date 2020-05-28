@@ -21,9 +21,13 @@ public class Hitbox : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if(parent == null)
+        if (parent == null)
         {
             Destroy(gameObject);
+        }
+        else
+        {
+            transform.position = parent.transform.position;
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,14 @@ public class PlayerController : EntityController
     public Slider cdSlider;
     public Slider chargeSlider;
 
-    public AudioSource Audio;
+    AudioSource walkAudio;
+    AudioSource laserAudio;
+    AudioSource hitAudio;
+
+    public AudioClip walk;
+    public AudioClip laser;
+    public AudioClip hit;
+
     public float timer;
     public float timeToStep = .6f;
     public Hitbox meleeHitbox;
@@ -19,6 +27,7 @@ public class PlayerController : EntityController
     public float attackRadius = 45;
     public float attackDuration = 1f;
     bool attacking = false;
+    bool charging = false;
 
     public float maxSpellCD = 5f;
     public float spellCD = 0;
@@ -44,7 +53,20 @@ public class PlayerController : EntityController
         rb = GetComponent<Rigidbody2D>();
         pc = this;
         Defaults.player = this;
-        Audio = GetComponent<AudioSource>();
+
+        walkAudio = gameObject.AddComponent<AudioSource>();
+        walkAudio.clip = walk;
+        walkAudio.volume = 0.5f;
+
+        laserAudio = gameObject.AddComponent<AudioSource>();
+        laserAudio.clip = laser;
+        laserAudio.volume = 1;
+
+        hitAudio = gameObject.AddComponent<AudioSource>();
+        hitAudio.clip = hit;
+        hitAudio.volume = 1;
+
+
         timer = timeToStep;
         currentSpeed = speed;
     }
@@ -60,7 +82,7 @@ public class PlayerController : EntityController
 
     void AttackController()
     {
-        if (Input.GetButton("Fire1") && !attacking)
+        if (Input.GetButton("Fire1") && !attacking && !charging)
         {
             StartCoroutine(MeleeAttack());
         }
@@ -79,7 +101,7 @@ public class PlayerController : EntityController
 
     void SpellController()
     {
-        if(spellCD <= 0 && Input.GetButton("Fire2"))
+        if(spellCD <= 0 && Input.GetButton("Fire2") && !attacking)
         {
             currentSpeed = speed * spellChargeSpeedMult;
             spellCurrentCharge += Time.deltaTime;
@@ -107,6 +129,7 @@ public class PlayerController : EntityController
         hitboxInstance = Instantiate(rangedHitbox, transform.position, transform.rotation).GetComponent<Hitbox>();
         hitboxInstance.parent = gameObject;
         hitboxInstance.attackDamage = spellDamage;
+        laserAudio.Play();
         while(timer < spellDuration)
         {
             timer += Time.deltaTime;
@@ -138,7 +161,7 @@ public class PlayerController : EntityController
 
         if (timer > timeToStep && isMoving)
         {
-            Audio.Play();
+            walkAudio.Play();
             timer = 0;
         }
     }
@@ -149,7 +172,7 @@ public class PlayerController : EntityController
         base.OnHit(damage);
         timeSinceLastInvinc = 0;
         healthSlider.value = GetHealthPercent();
-    
+        hitAudio.Play();
     }
 
     IEnumerator MeleeAttack()
@@ -179,6 +202,7 @@ public class PlayerController : EntityController
     protected override void Die()
     {
         //Game Over
-        Debug.Break();
+        //Debug.Break();
+        GameManager.instance.GameOver();
     }
 }

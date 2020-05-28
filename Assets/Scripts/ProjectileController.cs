@@ -34,5 +34,9 @@ public class ProjectileController : Hitbox
             other.gameObject.GetComponent<EntityController>().OnHit(attackDamage);
             Destroy(gameObject);
         }
+        else if(!other.gameObject.CompareTag("Player") && !other.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

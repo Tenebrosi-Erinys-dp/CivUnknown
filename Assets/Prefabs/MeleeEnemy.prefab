@@ -154,7 +154,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: e6c7bdfa728a2bd42baefca08a3465f1, type: 3}
   m_Color: {r: 1, g: 0, b: 0.92318535, a: 1}
   m_FlipX: 0
@@ -201,15 +201,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   attackDamage: 1
+  maxAttackCD: 4
+  invincibilityTime: 0.25
+  timeSinceLastInvinc: 0
   maxHp: 10
   currentHp: 0
   healthBar: {fileID: 0}
   hitbox: {fileID: 8996142205297252146, guid: 9edc5eb682ee91247b7139514a1c7071, type: 3}
   attackRange: 2
-  attackRadius: 90
-  attackWindup: 0.5
+  attackRadius: 45
   attackDuration: 0.5
   attackRecovery: 0.5
+  runAwayRange: 5
 --- !u!58 &6081302248346736564
 CircleCollider2D:
   m_ObjectHideFlags: 0
