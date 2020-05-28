@@ -718,8 +718,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a1d2330fd32e2b418b87adbde270c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomWidth: 18
-  roomHeight: 10
+  roomWidth: 32
+  roomHeight: 20
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
