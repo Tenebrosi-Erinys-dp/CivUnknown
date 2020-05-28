@@ -68,8 +68,7 @@ public class PlayerController : EntityController
         hitAudio = gameObject.AddComponent<AudioSource>();
         hitAudio.clip = hit;
         hitAudio.volume = 1;
-
-
+        
         timer = timeToStep;
         currentSpeed = speed;
     }
@@ -77,10 +76,14 @@ public class PlayerController : EntityController
     // Update is called once per frame
     void Update()
     {
-        MovementController();
         CooldownController();
         SpellController();
         AttackController();
+    }
+
+    private void FixedUpdate()
+    {
+        MovementController();
     }
 
     void AttackController()
@@ -164,7 +167,7 @@ public class PlayerController : EntityController
         head.transform.rotation = Quaternion.LookRotation(Vector3.forward, MouseAsWorldPos() - head.transform.position);
 
         //this is to play sound effect
-        timer += Time.deltaTime;
+        timer += Time.fixedDeltaTime;
         bool isMoving = !(Mathf.Approximately(x, 0) && Mathf.Approximately(y, 0));
 
         if (timer > timeToStep && isMoving)

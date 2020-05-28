@@ -36,8 +36,12 @@ public class RangedEnemy : EnemyController
     // Update is called once per frame
     void Update()
     {
-        MovementController();
         CooldownController();
+    }
+
+    private void FixedUpdate()
+    {
+        MovementController();
     }
 
     override protected void CooldownController()

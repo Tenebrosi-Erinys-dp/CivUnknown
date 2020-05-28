@@ -54,7 +54,7 @@ public class EntityController : MonoBehaviour
 
     protected virtual void MoveInDirection(Vector2 pos)
     {
-        Vector2 mPos = pos.normalized * speed * Time.deltaTime;
+        Vector2 mPos = pos.normalized * speed * Time.fixedDeltaTime;
         rb.MovePosition((Vector2)transform.position + mPos);
     }
 

@@ -21,8 +21,12 @@ public class MeleeEnemy : EnemyController
     // Update is called once per frame
     void Update()
     {
-        MovementController();
         CooldownController();
+    }
+
+    private void FixedUpdate()
+    {
+        MovementController();
     }
 
     void MovementController()
