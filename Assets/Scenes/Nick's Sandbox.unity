@@ -936,7 +936,7 @@ MonoBehaviour:
     type: 3}
   attackRange: 2
   attackRadius: 90
-  attackDuration: 0.25
+  attackDuration: 0.4
   maxSpellCD: 5
   spellCD: 0
   spellCurrentCharge: 0
