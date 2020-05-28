@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
+//Kaijie Zhou
+//Last edited by: Nick Erb 05/28
 public class CameraMovement : MonoBehaviour
 {
     public int roomWidth = 0;
@@ -25,8 +27,8 @@ public class CameraMovement : MonoBehaviour
         //Basically, take the player's position
         Vector3 player = Player.transform.position;
         //And derive the room value from that
-        room.x = (int)player.x / roomWidth;
-        room.y = (int)player.y / roomHeight;
+        room.x = (int)(player.x + roomWidth / 2) / roomWidth;
+        room.y = (int)(player.y + roomHeight / 2) / roomHeight;
         //Then, set the camera into the center of the derived room
         Vector3 camPos = new Vector3(room.x * roomWidth, room.y * roomHeight, camZ);
         gameObject.GetComponent<Camera>().transform.position = camPos;
