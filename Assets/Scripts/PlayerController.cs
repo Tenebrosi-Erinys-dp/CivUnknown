@@ -172,6 +172,13 @@ public class PlayerController : EntityController
             walkAudio.Play();
             timer = 0;
         }
+
+        int direction = Mathf.Abs(x) >= Mathf.Abs(y) && x > 0 ? 0 :
+            Mathf.Abs(x) >= Mathf.Abs(y) && x < 0 ? 2 :
+            Mathf.Abs(x) < Mathf.Abs(y) && y > 0 ? 1 :
+            Mathf.Abs(x) < Mathf.Abs(y) && y < 0 ? 3 : -1;
+        Debug.Log(direction);
+        //Direction represents the unit circle: 0 is right, 1 is up, 2 is left, and 3 is down
     }
 
     public override void OnHit(int damage)
