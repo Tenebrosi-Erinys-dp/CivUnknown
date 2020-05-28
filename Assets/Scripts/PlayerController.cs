@@ -10,6 +10,8 @@ public class PlayerController : EntityController
     public Slider cdSlider;
     public Slider chargeSlider;
 
+    GameObject head;
+
     AudioSource walkAudio;
     AudioSource laserAudio;
     AudioSource hitAudio;
@@ -49,6 +51,7 @@ public class PlayerController : EntityController
     // Start is called before the first frame update
     new void Start()
     {
+        head = GameObject.Find("HeadObject");
         base.Start();
         rb = GetComponent<Rigidbody2D>();
         pc = this;
@@ -125,15 +128,19 @@ public class PlayerController : EntityController
     IEnumerator LaserSpell()
     {
         float timer = 0;
-        currentSpeed = 0;
-        hitboxInstance = Instantiate(rangedHitbox, transform.position, transform.rotation).GetComponent<Hitbox>();
-        hitboxInstance.parent = gameObject;
+        currentSpeed = speed * spellFireSpeedMult;
+        hitboxInstance = Instantiate(rangedHitbox, head.transform.position, head.transform.rotation).GetComponent<Hitbox>();
+        hitboxInstance.parent = head;
+        hitboxInstance.transform.eulerAngles = new Vector3(0, 0, hitboxInstance.transform.eulerAngles.z + 90);
         hitboxInstance.attackDamage = spellDamage;
         laserAudio.Play();
         while(timer < spellDuration)
         {
             timer += Time.deltaTime;
             hitboxInstance.transform.localScale = new Vector3(spellRange, Mathf.Lerp(0, spellWidth, timer / spellDuration), 1);
+            hitboxInstance.transform.rotation = head.transform.rotation;
+            hitboxInstance.transform.eulerAngles = new Vector3(0, 0, hitboxInstance.transform.eulerAngles.z + 90);
+            hitboxInstance.transform.position = head.transform.position;
             yield return null;
         }
         Destroy(hitboxInstance.gameObject);
@@ -153,7 +160,8 @@ public class PlayerController : EntityController
         float y = Input.GetAxisRaw("Vertical");
 
         MoveInDirection(new Vector2(x, y));
-        rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(MouseAsWorldPos()));
+        //rotRB.MoveRotation(Mathf.Rad2Deg * Vector2Angle(MouseAsWorldPos()));
+        head.transform.rotation = Quaternion.LookRotation(Vector3.forward, MouseAsWorldPos() - head.transform.position);
 
         //this is to play sound effect
         timer += Time.deltaTime;
@@ -180,10 +188,10 @@ public class PlayerController : EntityController
         attacking = true;
         //Generate attack hitbox
         float timer = 0f;
-        float rotation = rb.rotation - attackRadius / 2f;
-        float finalRotation = rb.rotation + attackRadius / 2f;
-        hitboxInstance = Instantiate(meleeHitbox, transform);
-        hitboxInstance.parent = gameObject;
+        float rotation = head.transform.eulerAngles.z - attackRadius / 2f + 90;
+        float finalRotation = head.transform.eulerAngles.z + attackRadius / 2f + 90;
+        hitboxInstance = Instantiate(meleeHitbox, head.transform);
+        hitboxInstance.parent = head;
         hitboxInstance.attackDamage = attackDamage;
         hitboxInstance.isEnemy = false;
         //Rotate attack hitbox
