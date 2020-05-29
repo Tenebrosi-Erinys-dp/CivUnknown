@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class PlayerController : EntityController
 {
     public Slider healthSlider;
-    public Slider cdSlider;
     public Slider chargeSlider;
 
     GameObject head;
@@ -102,7 +101,10 @@ public class PlayerController : EntityController
         {
             spellCD -= Time.deltaTime;
         }
-        cdSlider.value = 1 - (spellCD / maxSpellCD);
+        if (Mathf.Approximately(spellCurrentCharge, 0))
+        {
+            chargeSlider.value = 1 - spellCD / maxSpellCD;
+        }
     }
 
     void SpellController()
@@ -125,7 +127,10 @@ public class PlayerController : EntityController
             spellCurrentCharge = 0;
             currentSpeed = speed;
         }
-        chargeSlider.value = spellCurrentCharge / maxSpellCharge;
+        if (!Mathf.Approximately(spellCurrentCharge, 0))
+        {
+            chargeSlider.value = 1 - spellCurrentCharge / maxSpellCharge;
+        }
     }
 
     IEnumerator LaserSpell()
@@ -149,12 +154,6 @@ public class PlayerController : EntityController
         Destroy(hitboxInstance.gameObject);
         yield return new WaitForSeconds(spellRecovery);
         currentSpeed = speed;
-    }
-
-    protected override void MoveInDirection(Vector2 pos)
-    {
-        Vector2 mPos = pos.normalized * currentSpeed * Time.deltaTime;
-        rb.MovePosition((Vector2)transform.position + mPos);
     }
 
     void MovementController()
