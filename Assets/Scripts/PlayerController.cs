@@ -66,7 +66,7 @@ public class PlayerController : EntityController
 
         hitAudio = gameObject.AddComponent<AudioSource>();
         hitAudio.clip = hit;
-        hitAudio.volume = 1;
+        hitAudio.volume = 0.7f;
         
         timer = timeToStep;
         currentSpeed = speed;

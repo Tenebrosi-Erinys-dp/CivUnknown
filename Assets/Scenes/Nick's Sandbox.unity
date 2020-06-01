@@ -909,7 +909,7 @@ MonoBehaviour:
   chargeSlider: {fileID: 403611159}
   walk: {fileID: 8300000, guid: dd5529de08c3c604f9ff0ee77f69f299, type: 3}
   laser: {fileID: 8300000, guid: 4564a658837b7b24d929ce4e2ac0214e, type: 3}
-  hit: {fileID: 8300000, guid: 45ef6ac0cea34ec4bac236e5228688c9, type: 3}
+  hit: {fileID: 8300000, guid: ff24f7dea3443c647802fe60bbc2ad02, type: 3}
   timer: 0.5
   timeToStep: 0.5
   meleeHitbox: {fileID: 8996142205297252146, guid: 9edc5eb682ee91247b7139514a1c7071,
