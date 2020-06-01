@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -160,7 +158,7 @@ public class PlayerController : EntityController
     {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
-
+        Debug.Log("Y: " + y);
         MoveInDirection(new Vector2(x, y));
         //rotRB.MoveRotation(Mathf.Rad2Deg * Vector2Angle(MouseAsWorldPos()));
         head.transform.rotation = Quaternion.LookRotation(Vector3.forward, MouseAsWorldPos() - head.transform.position);
