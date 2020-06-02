@@ -13,11 +13,13 @@ public class PlayerController : EntityController
     AudioSource laserAudio;
     AudioSource hitAudio;
     AudioSource chargeUpAudio;
+    AudioSource DingAudio;
 
     public AudioClip walk;
     public AudioClip laser;
     public AudioClip hit;
     public AudioClip chargeUp;
+    public AudioClip ding;
 
     public float timer;
     public float timeToStep = .6f;
@@ -71,6 +73,10 @@ public class PlayerController : EntityController
         chargeUpAudio = gameObject.AddComponent<AudioSource>();
         chargeUpAudio.clip = chargeUp;
         chargeUpAudio.volume = 3;
+
+        DingAudio = gameObject.AddComponent<AudioSource>();
+        DingAudio.clip = ding;
+        DingAudio.volume = 1;
         
         timer = timeToStep;
         currentSpeed = speed;
@@ -121,6 +127,13 @@ public class PlayerController : EntityController
                 Debug.Log("Starting to play");
                 chargeUpAudio.Play();
             }
+
+            if(charging && !chargeUpAudio.isPlaying && !laserAudio.isPlaying)
+            {
+                DingAudio.Play();
+                Debug.Log("Playing");
+            }
+
             currentSpeed = speed * spellChargeSpeedMult;
             Debug.Log(spellCurrentCharge);
             if (spellCurrentCharge >= maxSpellCharge)

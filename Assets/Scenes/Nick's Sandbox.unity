@@ -12658,6 +12658,7 @@ MonoBehaviour:
   laser: {fileID: 8300000, guid: 7895b0584a2279a4ab4d4bca722565e6, type: 3}
   hit: {fileID: 8300000, guid: ff24f7dea3443c647802fe60bbc2ad02, type: 3}
   chargeUp: {fileID: 8300000, guid: 487081f010b7b2b4a8bf9ffae5e899dd, type: 3}
+  ding: {fileID: 8300000, guid: 2bd25cad1334c724cb72fa647192c88e, type: 3}
   timer: 0.5
   timeToStep: 0.5
   meleeHitbox: {fileID: 8996142205297252146, guid: 9edc5eb682ee91247b7139514a1c7071,
@@ -13588,7 +13589,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 15.36, y: 20.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
