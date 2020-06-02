@@ -211,7 +211,8 @@ public class PlayerController : EntityController
         float timer = 0f;
         float rotation = head.transform.eulerAngles.z - attackRadius / 2f + 90;
         float finalRotation = head.transform.eulerAngles.z + attackRadius / 2f + 90;
-        hitboxInstance = Instantiate(meleeHitbox, head.transform);
+        hitboxInstance = Instantiate(meleeHitbox, transform);
+        hitboxInstance.transform.position = transform.position;
         hitboxInstance.parent = head;
         hitboxInstance.attackDamage = attackDamage;
         hitboxInstance.isEnemy = false;
@@ -222,6 +223,7 @@ public class PlayerController : EntityController
             timer += Time.deltaTime;
             float z = Mathf.Lerp(rotation, finalRotation, timer / attackDuration);
             hitboxInstance.transform.eulerAngles = new Vector3(0, 0, z);
+            hitboxInstance.transform.position = transform.position;
             yield return null;
         }
         Destroy(hitboxInstance.gameObject);
