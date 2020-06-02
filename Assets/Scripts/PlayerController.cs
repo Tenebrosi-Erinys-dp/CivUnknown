@@ -12,10 +12,12 @@ public class PlayerController : EntityController
     AudioSource walkAudio;
     AudioSource laserAudio;
     AudioSource hitAudio;
+    AudioSource ChargeUpAudio;
 
     public AudioClip walk;
     public AudioClip laser;
     public AudioClip hit;
+    public AudioClip ChargeUp;
 
     public float timer;
     public float timeToStep = .6f;
@@ -65,6 +67,10 @@ public class PlayerController : EntityController
         hitAudio = gameObject.AddComponent<AudioSource>();
         hitAudio.clip = hit;
         hitAudio.volume = 0.7f;
+
+        ChargeUpAudio = gameObject.AddComponent<AudioSource>();
+        ChargeUpAudio.clip = ChargeUp;
+        ChargeUpAudio.volume = 1;
         
         timer = timeToStep;
         currentSpeed = speed;
@@ -111,7 +117,8 @@ public class PlayerController : EntityController
         {
             currentSpeed = speed * spellChargeSpeedMult;
             spellCurrentCharge += Time.deltaTime;
-            if(spellCurrentCharge >= maxSpellCharge)
+           
+            if (spellCurrentCharge >= maxSpellCharge)
             {
                 //Fire strongest spell
                 Debug.Log("Fire");
@@ -128,6 +135,7 @@ public class PlayerController : EntityController
         if (!Mathf.Approximately(spellCurrentCharge, 0))
         {
             chargeSlider.value = 1 - spellCurrentCharge / maxSpellCharge;
+            ChargeUpAudio.Play();
         }
     }
 
@@ -148,6 +156,7 @@ public class PlayerController : EntityController
             hitboxInstance.transform.eulerAngles = new Vector3(0, 0, hitboxInstance.transform.eulerAngles.z + 90);
             hitboxInstance.transform.position = head.transform.position;
             yield return null;
+            
         }
         Destroy(hitboxInstance.gameObject);
         yield return new WaitForSeconds(spellRecovery);

@@ -1024,9 +1024,10 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   healthSlider: {fileID: 633609939}
   chargeSlider: {fileID: 403611159}
-  walk: {fileID: 8300000, guid: dd5529de08c3c604f9ff0ee77f69f299, type: 3}
-  laser: {fileID: 8300000, guid: 4564a658837b7b24d929ce4e2ac0214e, type: 3}
+  walk: {fileID: 8300000, guid: 03782def869dbe44782b72a5fa988b6f, type: 3}
+  laser: {fileID: 8300000, guid: 7895b0584a2279a4ab4d4bca722565e6, type: 3}
   hit: {fileID: 8300000, guid: ff24f7dea3443c647802fe60bbc2ad02, type: 3}
+  ChargeUp: {fileID: 0}
   timer: 0.5
   timeToStep: 0.5
   meleeHitbox: {fileID: 8996142205297252146, guid: 9edc5eb682ee91247b7139514a1c7071,
