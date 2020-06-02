@@ -12,12 +12,12 @@ public class PlayerController : EntityController
     AudioSource walkAudio;
     AudioSource laserAudio;
     AudioSource hitAudio;
-    AudioSource ChargeUpAudio;
+    AudioSource chargeUpAudio;
 
     public AudioClip walk;
     public AudioClip laser;
     public AudioClip hit;
-    public AudioClip ChargeUp;
+    public AudioClip chargeUp;
 
     public float timer;
     public float timeToStep = .6f;
@@ -68,9 +68,9 @@ public class PlayerController : EntityController
         hitAudio.clip = hit;
         hitAudio.volume = 0.7f;
 
-        ChargeUpAudio = gameObject.AddComponent<AudioSource>();
-        ChargeUpAudio.clip = ChargeUp;
-        ChargeUpAudio.volume = 1;
+        chargeUpAudio = gameObject.AddComponent<AudioSource>();
+        chargeUpAudio.clip = chargeUp;
+        chargeUpAudio.volume = 1;
         
         timer = timeToStep;
         currentSpeed = speed;
@@ -115,9 +115,14 @@ public class PlayerController : EntityController
     {
         if(spellCD <= 0 && Input.GetButton("Fire2") && !attacking)
         {
+            if (!charging)
+            {
+                charging = true;
+                Debug.Log("Starting to play");
+                chargeUpAudio.Play();
+            }
             currentSpeed = speed * spellChargeSpeedMult;
-            spellCurrentCharge += Time.deltaTime;
-           
+            Debug.Log(spellCurrentCharge);
             if (spellCurrentCharge >= maxSpellCharge)
             {
                 //Fire strongest spell
@@ -126,16 +131,18 @@ public class PlayerController : EntityController
                 spellCD = maxSpellCD;
                 spellCurrentCharge = 0;
             }
+            spellCurrentCharge += Time.deltaTime;
         }
         else
         {
             spellCurrentCharge = 0;
             currentSpeed = speed;
+            chargeUpAudio.Stop();
+            charging = false;
         }
         if (!Mathf.Approximately(spellCurrentCharge, 0))
         {
             chargeSlider.value = 1 - spellCurrentCharge / maxSpellCharge;
-            ChargeUpAudio.Play();
         }
     }
 
@@ -167,7 +174,6 @@ public class PlayerController : EntityController
     {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
-        Debug.Log("Y: " + y);
         MoveInDirection(new Vector2(x, y));
         //rotRB.MoveRotation(Mathf.Rad2Deg * Vector2Angle(MouseAsWorldPos()));
         head.transform.rotation = Quaternion.LookRotation(Vector3.forward, MouseAsWorldPos() - head.transform.position);
@@ -186,7 +192,6 @@ public class PlayerController : EntityController
             Mathf.Abs(x) >= Mathf.Abs(y) && x < 0 ? 2 :
             Mathf.Abs(x) < Mathf.Abs(y) && y > 0 ? 1 :
             Mathf.Abs(x) < Mathf.Abs(y) && y < 0 ? 3 : -1;
-        Debug.Log(direction);
         //Direction represents the unit circle: 0 is right, 1 is up, 2 is left, and 3 is down
     }
 
