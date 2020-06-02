@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RangedEnemy : EnemyController
 {
+    AudioSource LaserArrowAudio;
+    public AudioClip LaserArrow;
     // Start is called before the first frame update
     //Can shoot player from 8 units away
     float maxRange = 8f;
@@ -31,6 +33,10 @@ public class RangedEnemy : EnemyController
     {
         base.Start();
         strafeResetSpeed = Random.Range(strafeMin, strafeMax);
+
+        LaserArrowAudio = gameObject.AddComponent<AudioSource>();
+        LaserArrowAudio.clip = LaserArrow;
+        LaserArrowAudio.volume = 1;
     }
 
     // Update is called once per frame
@@ -65,6 +71,8 @@ public class RangedEnemy : EnemyController
             arrow.transform.rotation = transform.rotation;
             arrow.parent = gameObject;
             attackCD = maxAttackCD;
+            LaserArrowAudio.Play();
+            Debug.Log("Is Playing");
         }
     }
 

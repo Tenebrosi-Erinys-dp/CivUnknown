@@ -33,7 +33,7 @@ public class PlayerController : EntityController
     public float maxSpellCD = 5f;
     public float spellCD = 0;
     public float spellCurrentCharge = 0;
-    public float maxSpellCharge = 3;
+    public float maxSpellCharge = 3.5f;
 
     public float spellRange = 10f;
     public float spellWidth = 2f;
@@ -70,7 +70,7 @@ public class PlayerController : EntityController
 
         chargeUpAudio = gameObject.AddComponent<AudioSource>();
         chargeUpAudio.clip = chargeUp;
-        chargeUpAudio.volume = 1;
+        chargeUpAudio.volume = 3;
         
         timer = timeToStep;
         currentSpeed = speed;
