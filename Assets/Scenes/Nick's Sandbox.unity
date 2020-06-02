@@ -128,6 +128,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2691741229107555433, guid: 4fa08338ee8e7a641958346f703e6fb2,
+        type: 3}
+      propertyPath: LaserArrow
+      value: 
+      objectReference: {fileID: 8300000, guid: 73c4ff7f3bb35f247abb3df94355dcbb, type: 3}
     - target: {fileID: 8042311717089258700, guid: 4fa08338ee8e7a641958346f703e6fb2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1679,7 +1684,7 @@ MonoBehaviour:
   walk: {fileID: 8300000, guid: 03782def869dbe44782b72a5fa988b6f, type: 3}
   laser: {fileID: 8300000, guid: 7895b0584a2279a4ab4d4bca722565e6, type: 3}
   hit: {fileID: 8300000, guid: ff24f7dea3443c647802fe60bbc2ad02, type: 3}
-  chargeUp: {fileID: 8300000, guid: 9fc43a84c118d1945bc77bc8f7c955ec, type: 3}
+  chargeUp: {fileID: 8300000, guid: 487081f010b7b2b4a8bf9ffae5e899dd, type: 3}
   timer: 0.5
   timeToStep: 0.5
   meleeHitbox: {fileID: 8996142205297252146, guid: 9edc5eb682ee91247b7139514a1c7071,
