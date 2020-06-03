@@ -82,7 +82,7 @@ public class PlayerController : EntityController
 
         DingAudio = gameObject.AddComponent<AudioSource>();
         DingAudio.clip = ding;
-        DingAudio.volume = 1;
+        DingAudio.volume = 2;
         
         timer = timeToStep;
         currentSpeed = speed;
@@ -230,7 +230,7 @@ public class PlayerController : EntityController
 
         if(lastDirection != direction)
         {
-            anim.
+            myAnim.SetInteger("Mummy", 1);
         }
     }
 
