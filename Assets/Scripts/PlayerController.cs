@@ -48,6 +48,7 @@ public class PlayerController : EntityController
     public float spellFireSpeedMult = 0.5f;
 
     public int spellDamage = 3;
+    public float dingTimer = 4;
 
     // Start is called before the first frame update
     new void Start()
@@ -126,12 +127,18 @@ public class PlayerController : EntityController
                 charging = true;
                 Debug.Log("Starting to play");
                 chargeUpAudio.Play();
+                dingTimer -= 2;
             }
 
-            if(charging && !chargeUpAudio.isPlaying && !laserAudio.isPlaying)
+            else if((charging) && (!chargeUpAudio.isPlaying) && (!laserAudio.isPlaying) && (dingTimer == 0))
             {
                 DingAudio.Play();
                 Debug.Log("Playing");
+            }
+
+            else
+            {
+                dingTimer = 2;
             }
 
             currentSpeed = speed * spellChargeSpeedMult;
