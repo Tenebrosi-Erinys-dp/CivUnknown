@@ -14,7 +14,7 @@ public class PlayerController : EntityController
     AudioSource laserAudio;
     AudioSource hitAudio;
     AudioSource chargeUpAudio;
-    AudioSource DingAudio;
+    AudioSource dingAudio;
 
     public AudioClip walk;
     public AudioClip laser;
@@ -54,6 +54,8 @@ public class PlayerController : EntityController
     int lastDirection;
     Animator anim;
 
+    SpriteRenderer sr;
+
     // Start is called before the first frame update
     new void Start()
     {
@@ -80,12 +82,14 @@ public class PlayerController : EntityController
         chargeUpAudio.clip = chargeUp;
         chargeUpAudio.volume = 3;
 
-        DingAudio = gameObject.AddComponent<AudioSource>();
-        DingAudio.clip = ding;
-        DingAudio.volume = 2;
+        dingAudio = gameObject.AddComponent<AudioSource>();
+        dingAudio.clip = ding;
+        dingAudio.volume = 1;
         
         timer = timeToStep;
         currentSpeed = speed;
+
+        sr = head.GetComponentInChildren<SpriteRenderer>();
 
         anim = GetComponent<Animator>();
     }
@@ -125,6 +129,10 @@ public class PlayerController : EntityController
         if (spellCD > 0)
         {
             spellCD -= Time.deltaTime;
+            if(spellCD <= 0)
+            {
+                dingAudio.Play();
+            }
         }
         if (Mathf.Approximately(spellCurrentCharge, 0))
         {
@@ -141,18 +149,6 @@ public class PlayerController : EntityController
                 charging = true;
                 Debug.Log("Starting to play");
                 chargeUpAudio.Play();
-                dingTimer -= 2;
-            }
-
-            else if((charging) && (!chargeUpAudio.isPlaying) && (!laserAudio.isPlaying) && (dingTimer == 0))
-            {
-                DingAudio.Play();
-                Debug.Log("Playing");
-            }
-
-            else
-            {
-                dingTimer = 2;
             }
 
             currentSpeed = speed * spellChargeSpeedMult;
@@ -211,6 +207,8 @@ public class PlayerController : EntityController
         MoveInDirection(new Vector2(x, y));
         //rotRB.MoveRotation(Mathf.Rad2Deg * Vector2Angle(MouseAsWorldPos()));
         head.transform.rotation = Quaternion.LookRotation(Vector3.forward, MouseAsWorldPos() - head.transform.position);
+
+        sr.flipY = MouseAsWorldPos().x - head.transform.position.x < 0;
 
         //this is to play sound effect
         timer += Time.fixedDeltaTime;
