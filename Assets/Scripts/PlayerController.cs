@@ -6,6 +6,7 @@ public class PlayerController : EntityController
 {
     public Slider healthSlider;
     public Slider chargeSlider;
+    Animator myAnim;
 
     GameObject head;
 
@@ -53,6 +54,7 @@ public class PlayerController : EntityController
     // Start is called before the first frame update
     new void Start()
     {
+        myAnim = GetComponent<Animator>();
         head = GameObject.Find("HeadObject");
         base.Start();
         rb = GetComponent<Rigidbody2D>();
@@ -103,6 +105,13 @@ public class PlayerController : EntityController
             StartCoroutine(MeleeAttack());
         }
     }
+
+        //sample code. Have a conditional to call each animation like this
+        //if(direction > Whatever value)
+        //{
+             //myAnim.SetInteger("State", transition number);
+        //}
+        //Note: transition number is the number I assigned for each animation in the controller
 
     protected override void CooldownController()
     {
