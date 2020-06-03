@@ -51,6 +51,9 @@ public class PlayerController : EntityController
     public int spellDamage = 3;
     public float dingTimer = 4;
 
+    int lastDirection;
+    Animator anim;
+
     // Start is called before the first frame update
     new void Start()
     {
@@ -83,6 +86,8 @@ public class PlayerController : EntityController
         
         timer = timeToStep;
         currentSpeed = speed;
+
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -222,6 +227,11 @@ public class PlayerController : EntityController
             Mathf.Abs(x) < Mathf.Abs(y) && y > 0 ? 1 :
             Mathf.Abs(x) < Mathf.Abs(y) && y < 0 ? 3 : -1;
         //Direction represents the unit circle: 0 is right, 1 is up, 2 is left, and 3 is down
+
+        if(lastDirection != direction)
+        {
+            anim.
+        }
     }
 
     public override void OnHit(int damage)

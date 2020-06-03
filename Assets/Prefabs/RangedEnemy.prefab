@@ -208,6 +208,7 @@ MonoBehaviour:
   currentHp: 0
   healthBar: {fileID: 5615755559205212319, guid: 1ece322f6f02e51458271d43ecb1991b,
     type: 3}
+  LaserArrow: {fileID: 8300000, guid: 73c4ff7f3bb35f247abb3df94355dcbb, type: 3}
   arrowRange: 10
 --- !u!58 &498451570441617303
 CircleCollider2D:

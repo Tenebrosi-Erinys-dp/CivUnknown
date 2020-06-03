@@ -36,7 +36,7 @@ public class RangedEnemy : EnemyController
 
         LaserArrowAudio = gameObject.AddComponent<AudioSource>();
         LaserArrowAudio.clip = LaserArrow;
-        LaserArrowAudio.volume = 1;
+        LaserArrowAudio.volume = 0.5f;
     }
 
     // Update is called once per frame
