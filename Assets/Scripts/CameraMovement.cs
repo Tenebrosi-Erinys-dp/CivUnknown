@@ -15,6 +15,7 @@ public class CameraMovement : MonoBehaviour
     static GameObject Player;
     Vector2 lastRoom;
     public float timeToChangeRooms = .25f;
+    public GameObject color;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,7 @@ public class CameraMovement : MonoBehaviour
         Player = GameObject.Find("Player");
     }
 
-    // Update is called once per frame
+    // Update is called once per framee
     void Update()
     {
         //Basically, take the player's position
@@ -50,6 +51,7 @@ public class CameraMovement : MonoBehaviour
 
     IEnumerator SmoothCameraMove(Vector2Int room, float time)
     {
+        //Randomize color
         Vector3 startPos = transform.position;
         float timer = 0;
         while (timer < time)
