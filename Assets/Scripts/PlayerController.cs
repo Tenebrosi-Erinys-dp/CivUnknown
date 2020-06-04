@@ -15,12 +15,14 @@ public class PlayerController : EntityController
     AudioSource hitAudio;
     AudioSource chargeUpAudio;
     AudioSource dingAudio;
+    AudioSource MeleeHitAudio;
 
     public AudioClip walk;
     public AudioClip laser;
     public AudioClip hit;
     public AudioClip chargeUp;
     public AudioClip ding;
+    public AudioClip MeleeHit;
 
     public float timer;
     public float timeToStep = .6f;
@@ -85,6 +87,10 @@ public class PlayerController : EntityController
         dingAudio = gameObject.AddComponent<AudioSource>();
         dingAudio.clip = ding;
         dingAudio.volume = 1;
+
+        MeleeHitAudio = gameObject.AddComponent<AudioSource>();
+        MeleeHitAudio.clip = MeleeHit;
+        MeleeHitAudio.volume = 1;
         
         timer = timeToStep;
         currentSpeed = speed;
@@ -112,6 +118,7 @@ public class PlayerController : EntityController
         if (Input.GetButton("Fire1") && !attacking && !charging)
         {
             StartCoroutine(MeleeAttack());
+            MeleeHitAudio.Play();
         }
     }
 
