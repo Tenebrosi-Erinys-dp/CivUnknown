@@ -191,10 +191,8 @@ public class PlayerController : EntityController
         laserAudio.Play();
         while(timer < spellDuration)
         {
-            RaycastHit2D hit = Physics2D.Raycast(head.transform.position, head.transform.forward, Mathf.Infinity, wall);
-            bool isHit = hit;
             timer += Time.deltaTime;
-            hitboxInstance.transform.localScale = new Vector3(Mathf.Min(spellRange, hit.distance), Mathf.Lerp(0, spellWidth, timer / spellDuration), 1);
+            hitboxInstance.transform.localScale = new Vector3(spellRange, Mathf.Lerp(0, spellWidth, timer / spellDuration), 1);
             hitboxInstance.transform.rotation = head.transform.rotation;
             hitboxInstance.transform.eulerAngles = new Vector3(0, 0, hitboxInstance.transform.eulerAngles.z + 90);
             hitboxInstance.transform.position = head.transform.position;
