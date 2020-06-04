@@ -7,7 +7,7 @@ public class EnemyController : EntityController
 
     protected Vector2 player;
     protected bool detected;
-
+    protected GameObject rotator;
 
     // Start is called before the first frame update
     new protected void Start()
@@ -18,6 +18,7 @@ public class EnemyController : EntityController
         healthBar.entity = this;
         healthBar.bar = healthBar.transform.Find("Bar").gameObject;
         currentHp = maxHp;
+        rotator = transform.Find("Rotator").gameObject;
     }
 
     // Update is called once per frame
