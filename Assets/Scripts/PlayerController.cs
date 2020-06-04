@@ -34,14 +34,14 @@ public class PlayerController : EntityController
     bool attacking = false;
     bool charging = false;
 
-    public float maxSpellCD = 5f;
+    public float maxSpellCD = 3f;
     public float spellCD = 0;
     public float spellCurrentCharge = 0;
     public float maxSpellCharge = 3.5f;
 
-    public float spellRange = 10f;
+    public float spellRange = 5f;
     public float spellWidth = 2f;
-    public float spellDuration = .5f;
+    public float spellDuration = .2f;
     public float spellRecovery = .25f;
 
     public float currentSpeed;
@@ -49,7 +49,7 @@ public class PlayerController : EntityController
     public float spellChargeSpeedMult = 0.8f;
     public float spellFireSpeedMult = 0.5f;
 
-    public int spellDamage = 3;
+    public int spellDamage = 4;
     public float dingTimer = 4;
 
     SpriteRenderer sr;
