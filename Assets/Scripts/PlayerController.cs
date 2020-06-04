@@ -230,6 +230,11 @@ public class PlayerController : EntityController
         {
             myAnim.SetInteger("Mummy", 1);
         }
+
+        else if(lastDirection != direction)
+        {
+            myAnim.SetInteger("Mummy", 2);
+        }
     }
 
     public override void OnHit(int damage)
