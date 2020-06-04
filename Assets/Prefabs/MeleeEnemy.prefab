@@ -239,6 +239,7 @@ MonoBehaviour:
   maxHp: 10
   currentHp: 0
   healthBar: {fileID: 0}
+  exists: 0
   hitbox: {fileID: 8996142205297252146, guid: 9edc5eb682ee91247b7139514a1c7071, type: 3}
   attackRange: 2
   attackRadius: 45
@@ -258,9 +259,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.5}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!95 &2293367143112367979
 Animator:
   serializedVersion: 3
