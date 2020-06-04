@@ -68,7 +68,8 @@ public class RangedEnemy : EnemyController
             arrow.attackDamage = attackDamage;
             arrow.transform.position = transform.position;
             arrow.startPosition = arrow.transform.position;
-            arrow.transform.rotation = transform.rotation;
+            arrow.transform.rotation = rotator.transform.rotation;
+            arrow.transform.eulerAngles = arrow.transform.eulerAngles + Vector3.forward * 90;
             arrow.parent = gameObject;
             attackCD = maxAttackCD;
             LaserArrowAudio.Play();
@@ -82,7 +83,8 @@ public class RangedEnemy : EnemyController
         if (detected)
         {
             //Look at player
-            rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(player));
+            //rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(player));
+            rotator.transform.rotation = Quaternion.LookRotation(Vector3.forward, (Vector3)player - transform.position);
 
             Vector2 direction = player;
             if (distance > maxRange)

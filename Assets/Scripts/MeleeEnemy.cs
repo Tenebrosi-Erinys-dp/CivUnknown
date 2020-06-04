@@ -37,7 +37,8 @@ public class MeleeEnemy : EnemyController
             if (!attacking && attackCD <= 0 && distance > attackRange)
             {
                 //Go towards player, begin rotating
-                rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(player));
+                //rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(player));
+                rotator.transform.rotation = Quaternion.LookRotation(Vector3.forward, (Vector3)player - transform.position);
                 MoveInDirection(player - (Vector2)transform.position);
             }
             else if (!attacking && attackCD <= 0 && distance <= attackRange)
@@ -50,7 +51,8 @@ public class MeleeEnemy : EnemyController
             else if(!attacking && distance < runAwayRange)
             {
                 //Run away and rotate away from player
-                rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(FlipAroundSelf(player)));
+                //rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(FlipAroundSelf(player)));
+                rotator.transform.rotation = Quaternion.LookRotation(Vector3.forward, (Vector3)FlipAroundSelf(player) - transform.position);
                 MoveInDirection(FlipAroundSelf(player) - (Vector2)transform.position);
             }
             else
@@ -65,8 +67,8 @@ public class MeleeEnemy : EnemyController
         //Generate attack hitbox
         attacking = true;
         float timer = 0f;
-        float rotation = rb.rotation - attackRadius / 2f;
-        float finalRotation = rb.rotation + attackRadius / 2f;
+        float rotation = rotator.transform.eulerAngles.z + 90 - attackRadius / 2f;
+        float finalRotation = rotator.transform.eulerAngles.z + 90 + attackRadius / 2f;
         hitboxInstance = Instantiate(hitbox);
         hitboxInstance.parent = gameObject;
         hitboxInstance.transform.position = transform.position;

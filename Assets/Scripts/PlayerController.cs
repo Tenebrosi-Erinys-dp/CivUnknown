@@ -235,12 +235,8 @@ public class PlayerController : EntityController
 
         if(lastDirection != direction)
         {
-            myAnim.SetInteger("Mummy", 1);
-        }
-
-        else if(lastDirection != direction)
-        {
-            myAnim.SetInteger("Mummy", 2);
+            lastDirection = direction;
+            myAnim.SetInteger("Mummy", direction);
         }
     }
 
@@ -268,7 +264,6 @@ public class PlayerController : EntityController
         //Rotate attack hitbox
         while (timer < attackDuration)
         {
-            Debug.Log(timer);
             timer += Time.deltaTime;
             float z = Mathf.Lerp(rotation, finalRotation, timer / attackDuration);
             hitboxInstance.transform.eulerAngles = new Vector3(0, 0, z);
