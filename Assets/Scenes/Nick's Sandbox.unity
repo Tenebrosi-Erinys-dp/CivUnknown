@@ -191,7 +191,7 @@ PrefabInstance:
     - target: {fileID: 8042311717089258700, guid: 4fa08338ee8e7a641958346f703e6fb2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.77
+      value: -5.84
       objectReference: {fileID: 0}
     - target: {fileID: 8042311717089258700, guid: 4fa08338ee8e7a641958346f703e6fb2,
         type: 3}
@@ -481,6 +481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b316e424a8819e4d94a2f70607ca8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemies: []
 --- !u!1 &431490815
 GameObject:
   m_ObjectHideFlags: 0
@@ -3179,9 +3180,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -1}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.75
 --- !u!1 &633609937
 GameObject:
   m_ObjectHideFlags: 0
