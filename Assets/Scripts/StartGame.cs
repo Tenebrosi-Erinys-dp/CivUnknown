@@ -21,6 +21,6 @@ public class StartGame : MonoBehaviour
     }
 
     void ChangeScene() {
-        SceneManager.LoadScene("Nick's Sandbox", LoadSceneMode.Single);
+        SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 }
