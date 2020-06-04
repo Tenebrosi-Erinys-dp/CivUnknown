@@ -23,12 +23,18 @@ public class EntityController : MonoBehaviour
     [SerializeField]
     protected int currentHp;
 
+    protected int lastDirection;
+    protected Animator myAnim;
+
     public FloatingHealthBar healthBar;
+
+    protected string self;
 
     // Start is called before the first frame update
     protected void Start()
     {
         currentHp = maxHp;
+        myAnim = GetComponent<Animator>();
     }
 
     protected virtual void CooldownController()
@@ -54,6 +60,20 @@ public class EntityController : MonoBehaviour
 
     protected virtual void MoveInDirection(Vector2 pos)
     {
+        float x = pos.x;
+        float y = pos.y;
+        int direction = Mathf.Abs(x) >= Mathf.Abs(y) && x > 0 ? 0 :
+            Mathf.Abs(x) >= Mathf.Abs(y) && x < 0 ? 2 :
+            Mathf.Abs(x) < Mathf.Abs(y) && y > 0 ? 1 :
+            Mathf.Abs(x) < Mathf.Abs(y) && y < 0 ? 3 : -1;
+        //Direction represents the unit circle: 0 is right, 1 is up, 2 is left, and 3 is down
+
+        if (lastDirection != direction)
+        {
+            lastDirection = direction;
+            myAnim.SetInteger(self, direction);
+        }
+
         Vector2 mPos = pos.normalized * speed * Time.fixedDeltaTime;
         rb.MovePosition((Vector2)transform.position + mPos);
     }

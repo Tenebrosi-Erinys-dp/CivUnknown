@@ -7,20 +7,20 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public static List<EnemyController> enemies;
+    public List<EnemyController> enemies;
 
     private void Start()
     {
         instance = this;
-        enemies = FindObjectsOfType<EnemyController>().ToList<EnemyController>();
+        enemies = FindObjectsOfType<EnemyController>().ToList();
     }
 
-    public static void CheckGameWin()
+    public void CheckGameWin()
     {
         bool isAllEmpty = true;
         for (int i = 0; i < enemies.Count; i++)
         {
-            if(enemies[i] != null)
+            if(enemies[i].exists)
             {
                 isAllEmpty = false;
             }

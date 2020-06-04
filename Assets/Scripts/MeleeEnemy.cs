@@ -16,6 +16,7 @@ public class MeleeEnemy : EnemyController
     new protected void Start()
     {
         base.Start();
+        self = "Archaeologist";
     }
 
     // Update is called once per frame
@@ -46,13 +47,12 @@ public class MeleeEnemy : EnemyController
                 //Attack player
                 attackCD = maxAttackCD;
                 StartCoroutine(MeleeAttack());
-            
             }
             else if(!attacking && distance < runAwayRange)
             {
                 //Run away and rotate away from player
                 //rb.MoveRotation(Mathf.Rad2Deg * Vector2Angle(FlipAroundSelf(player)));
-                rotator.transform.rotation = Quaternion.LookRotation(Vector3.forward, (Vector3)FlipAroundSelf(player) - transform.position);
+                rotator.transform.rotation = Quaternion.LookRotation(Vector3.forward, (Vector3)player - transform.position);
                 MoveInDirection(FlipAroundSelf(player) - (Vector2)transform.position);
             }
             else

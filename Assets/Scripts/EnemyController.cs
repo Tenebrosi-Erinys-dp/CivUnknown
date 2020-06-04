@@ -8,11 +8,13 @@ public class EnemyController : EntityController
     protected Vector2 player;
     protected bool detected;
     protected GameObject rotator;
+    public bool exists = true;
 
     // Start is called before the first frame update
     new protected void Start()
     {
         base.Start();
+        exists = true;
         rb = GetComponent<Rigidbody2D>();
         healthBar = Instantiate(Defaults.instance.health);
         healthBar.entity = this;
@@ -40,6 +42,8 @@ public class EnemyController : EntityController
 
     protected override void Die()
     {
+        exists = false;
+        GameManager.instance.CheckGameWin();
         Destroy(gameObject);
     }
 }

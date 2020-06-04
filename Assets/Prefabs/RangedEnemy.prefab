@@ -240,6 +240,7 @@ MonoBehaviour:
   currentHp: 0
   healthBar: {fileID: 5615755559205212319, guid: 1ece322f6f02e51458271d43ecb1991b,
     type: 3}
+  exists: 0
   LaserArrow: {fileID: 8300000, guid: 73c4ff7f3bb35f247abb3df94355dcbb, type: 3}
   arrowRange: 10
 --- !u!58 &498451570441617303
@@ -255,9 +256,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.5}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!95 &3371320880768099661
 Animator:
   serializedVersion: 3
